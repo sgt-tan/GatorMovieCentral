@@ -1,0 +1,143 @@
+<html lang="en_US">
+<head>
+  <script src="https://use.fontawesome.com/a3785455cd.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto:500" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/6.0.0/normalize.css">
+  <style>
+  body {
+    background: #f7f7f7;
+    margin: 0;
+  }
+  a {
+      font-family: inherit;
+      text-decoration: none;
+      color: #4495d4;
+  }
+  h1 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 3em;
+    margin: 0;
+  }
+  h1 > .blue {
+    color: #0021A5;
+  }
+  h1 > .orange {
+    color: #FA4616;
+  }
+  .vertical-center {
+    min-height: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .container {
+    width: 100%;
+  }
+  .logo-wrapper {
+
+  }
+  .search-wrapper {
+    padding: 1.3em .8em 0;
+    max-width: 590px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    float: none;
+    width: 70%;
+  }
+  .search {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    display: block;
+    position: relative;
+    height: 2.8em;
+    background-color: #fff;
+    border: 1px solid #d0d0d0;
+    padding-left: .75em;
+    padding-right: 4em;
+    font-family: "Open Sans", sans-serif;
+  }
+  .search-box {
+    font-size: 1.1em;
+    font-weight: normal;
+    color: #333;
+    display: block;
+    width: 100%;
+    background: none;
+    outline: none;
+    border: none;
+    padding: 0;
+    height: 2.54545em;
+    z-index: 1;
+    position: relative;
+    top: -1px;
+  }
+  .search-button {
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+    cursor: pointer;
+    color: #aaa;
+    background: transparent;
+    border: none;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 2px;
+    left: auto;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    min-width: 26px;
+    height: auto;
+    min-height: 1.8em;
+    font-size: 1.25em;
+    padding: 0 .64em;
+    margin-top: 2px;
+    margin-bottom: 2px;
+  }
+  .search-button:hover {
+    color: #fff;
+    background-color: #FA4616;
+  }
+  #tips {
+    position: relative;
+    line-height: 1.4;
+    font-size: 1em;
+    padding: 0;
+    margin: .5em auto;
+    text-align: center;
+    color: #9a9a9a;
+    font-family: "Open Sans", sans-serif;
+    max-width: 590px;
+    width: 70%;
+  }
+  </style>
+  <title>Gator Movie Central</title>
+</head>
+<body class="vertical-center">
+  <div class="container">
+    <div class="logo-wrapper">
+      <h1>
+        <span class="blue">Gator </span>
+        <span class="orange">Movie</span></br>
+        <i class="fa fa-database" aria-hidden="true"></i> Central <i class="fa fa-film" aria-hidden="true"></i>
+      </h1>
+    </div>
+    <div class="search-wrapper">
+      <form id="search-form" class="search" method="GET" action="/search/">
+  			<input id="search-box" class="search-box" type="search" name="q" value="">
+        <button type="submit" id="search-button" class="search-button"><i class="fa fa-search"></i></button>
+      </form>
+    </div>
+    <div id="tips">Try searching for a movie or person.</div>
+  </div>
+</body>
+</html>
