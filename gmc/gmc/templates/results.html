@@ -1,15 +1,187 @@
-<h1>Search results for: {{ query }}</h1>
+<html lang="en_US">
+<head>
+  <script src="https://use.fontawesome.com/a3785455cd.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto:500" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/6.0.0/normalize.css">
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <style>
+  body {
+    background: #f7f7f7;
+    margin: 0;
+  }
+  a {
+      font-family: inherit;
+      text-decoration: none;
+      color: #4495d4;
+  }
+  h1 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 3em;
+    margin: 0;
+  }
+  h1 > .blue {
+    color: #0021A5;
+  }
+  h1 > .orange {
+    color: #FA4616;
+  }
+  .vertical-center {
+    min-height: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .container {
+    width: 100%;
+  }
+  .logo-wrapper {
 
-<h2>Movies</h2>
-{% if movies %}
-	{% for movie in movies %}
-	<li><a href="/movie/{{ movie.0 }}">{{ movie.1 }}</a></li>
-	{% endfor %}
-{% endif %}
+  }
+  .search-wrapper {
+    padding: 1.3em .8em 0;
+    max-width: 590px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    float: none;
+    width: 70%;
+  }
+  .search {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    display: block;
+    position: relative;
+    height: 2.8em;
+    background-color: #fff;
+    border: 1px solid #d0d0d0;
+    padding-left: .75em;
+    padding-right: 4em;
+    font-family: "Open Sans", sans-serif;
+  }
+  .search-box {
+    font-size: 1.1em;
+    font-weight: normal;
+    color: #333;
+    display: block;
+    width: 100%;
+    background: none;
+    outline: none;
+    border: none;
+    padding: 0;
+    height: 2.54545em;
+    z-index: 1;
+    position: relative;
+    top: -1px;
+  }
+  .search-button {
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+    cursor: pointer;
+    color: #aaa;
+    background: transparent;
+    border: none;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 2px;
+    left: auto;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    min-width: 26px;
+    height: auto;
+    min-height: 1.8em;
+    font-size: 1.25em;
+    padding: 0 .64em;
+    margin-top: 2px;
+    margin-bottom: 2px;
+  }
+  .search-button:hover {
+    color: #fff;
+    background-color: #FA4616;
+  }
+  #tips {
+    position: relative;
+    line-height: 1.4;
+    font-size: 1em;
+    padding: 0;
+    margin: .5em auto;
+    text-align: center;
+    color: #9a9a9a;
+    font-family: "Open Sans", sans-serif;
+    max-width: 590px;
+    width: 70%;
+  }
+	.table {
+    margin-bottom: 0;
+	}
+	.navbar{
+		padding: 1em 0;
+	}
+	.movie_column {
+		text-align: right;
+	}
+	.people_column {
+		text-align: left;
+	}
+	li {
+		list-style: none;
+	}
+  </style>
+  <title>Search Results</title>
+</head>
+<body class="vertical-center">
+	<nav class="navbar navbar-default navbar-fixed-top">
+	  <div class="container">
+	    <div class="logo-wrapper">
+	      <h1>
+					<i class="fa fa-database" aria-hidden="true"></i>
+	        <span class="blue"> Gator </span>
+	        <span class="orange">Movie </span>
+	        Central <i class="fa fa-film" aria-hidden="true"></i>
+	      </h1>
+	    </div>
+		</div>
+	</nav>
 
-<h2>People</h2>
-{% if people %}
-	{% for person in people %}
-	<li><a href="/person/{{ person.0 }}">{{ person.1 }}</a></li>
-	{% endfor %}
-{% endif %}
+	<div class="container">
+
+		<h1>Search results for: "{{ query }}"</h1>
+
+		<div class="row">
+			<div class="col-md-6 movie_column">
+			<h2>Movies <i class="fa fa-film" aria-hidden="true"></i></h2>
+			{% if movies %}
+				{% for movie in movies %}
+				<li><a href="/movie/{{ movie.0 }}">{{ movie.1 }}</a></li>
+				{% endfor %}
+			{% else %}
+				<li>NO RESULTS</li>
+			{% endif %}
+			</div>
+			<div class="col-md-6 people_column">
+			<h2><i class="fa fa-user" aria-hidden="true"></i> People</h2>
+			{% if people %}
+				{% for person in people %}
+				<li><a href="/person/{{ person.0 }}">{{ person.1 }}</a></li>
+				{% endfor %}
+			{% else %}
+				<li>NO RESULTS</li>
+			{% endif %}
+			</div>
+		</div>
+
+  </div>
+
+
+</body>
+</html>

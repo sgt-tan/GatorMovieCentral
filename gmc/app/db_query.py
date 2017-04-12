@@ -21,16 +21,17 @@ def tuple_count():
 		cursor.execute("SELECT count(*) FROM title")
 		title = cursor.fetchone()
 
-		result = ("cast_info: " + str(cast_info[0]) + "<br>" +
-			"char_name: " + str(char_name[0]) + "<br>" +
-			"company_name: " + str(company_name[0]) + "<br>" +
-			"movie_companies: " + str(movie_companies[0]) + "<br>" +
-			"movie_info: " + str(movie_info[0]) + "<br>" +
-			"movie_info_idx: " + str(movie_info_idx[0]) + "<br>" +
-			"name: " + str(name[0]) + "<br>" +
-			"person_info: " + str(person_info[0]) + "<br>" +
-			"title: " + str(title[0]) + "<br>" +
-			"TOTAL: " + str(cast_info[0]+char_name[0]+company_name[0]+movie_companies[0]+movie_info[0]+movie_info_idx[0]+name[0]+person_info[0]+title[0]))
+		result = [('cast_info',cast_info[0]),
+				  ('char_name',char_name[0]),
+				  ('company_name',company_name[0]),
+				  ('movie_companies',movie_companies[0]),
+				  ('movie_info',movie_info[0]),
+				  ('movie_info_idx',movie_info_idx[0]),
+				  ('name',name[0]),
+				  ('person_info',person_info[0]),
+				  ('title',title[0]),
+				  ('TOTAL',(cast_info[0]+char_name[0]+company_name[0]+movie_companies[0]+movie_info[0]+movie_info_idx[0]+name[0]+person_info[0]+title[0]))
+		]
 
     return result
 
