@@ -12,7 +12,8 @@ from app.db_query import *
 
 @csrf_exempt
 def home(request):
-    return render(request, 'index.html', {'tuple_count': tuple_count()})
+	print tuple_count()
+	return render(request, 'index.html', {'tuple_count': tuple_count()})
 
 @csrf_exempt
 def results(request):
