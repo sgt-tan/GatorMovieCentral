@@ -3,30 +3,40 @@ body {
 	font-family: arial;
 }
 
-h1, h2, li {
+header{
+
+}
+
+h4 {
+	display: inline-block;
+	background: #999;
 	color: black;
-} 
+	margin: 0px;
+	padding: 0 50px 0 50px;
+}
+
+nav ul {
+	display: inline;
+	margin: 0;
+	padding: 0;
+}
+
+nav ul li {
+	display: inline-block;
+	list-style-type: none;
+	float = left;
+}
 
 a {
 	color: green;
 }
 
 p {
-	background: #666;
-	color: white;
-	padding: 10px;
+	background: white;
+	color: black;
 }
+
 
 section {
 
-}
-
-.secondary {
-	background: none;
-	color: #777;
-}
-
-#special {
-	background: red;
-	color: white;
 }
