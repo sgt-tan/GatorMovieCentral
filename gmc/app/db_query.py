@@ -63,10 +63,8 @@ def movie_data(cur_id):
 		director= cursor.fetchall()
 		cursor.execute("select name, person_id from name inner join cast_info on cast_info.PERSON_ID=name.id where movie_id=" +cur_id+ " and role_id=4)
 		writer= cursor.fetchall()
-		cursor.execute("select name, person_id from name inner join cast_info on cast_info.PERSON_ID=name.id where movie_id=" +cur_id+ " and role_id=1)
+		cursor.execute("select name, person_id from name inner join cast_info on cast_info.PERSON_ID=name.id where movie_id=" +cur_id+ " and (role_id=1 or role_id=2)")
 		actor= cursor.fetchall()
-		cursor.execute("select name, person_id from name inner join cast_info on cast_info.PERSON_ID=name.id where movie_id=" +cur_id+ " and role_id=2)
-		actress= cursor.fetchall()
 		cursor.execute("select info from movie_info where info_type_id=105 and movie_id=" + cur_id)
 		budget= cursor.fetchall()
 		cursor.execute("select info from movie_info where info_type_id=108 and movie_id=" + cur_id)
@@ -77,7 +75,7 @@ def movie_data(cur_id):
 		gross= cursor.fetchall()
 		cursor.execute(select name, company_id from company_name inner join movie_companies on movie_companies.COMPANY_ID=company_name.id where movie_id="+cur_id+" and company_type_id=2)
 		prod_comp= cursor.fetchall()
-		results=''
+		results=[mpaa, runtime, genre,release_date,rating,director,writer,actor,budget,opweekend,grweekend,gross,prod_comp]
 	return results
 
 def person_data(cur_id):
@@ -87,12 +85,12 @@ def person_data(cur_id):
 		cursor.execute("select info from person_info where info_type_id=21 and PERSON_ID=" + cur_id)
 		birthday= cursor.fetchall()
 		cursor.execute("select info from person_info where info_type_id=23 and PERSON_ID=" + cur_id)
-		deadate= cursor.fetchall()
+		deathdate= cursor.fetchall()
 		cursor.execute("select info from person_info where info_type_id=24 and PERSON_ID=" + cur_id)
 		spouse= cursor.fetchall()
 		cursor.execute("select gender from name where id=" + cur_id)
 		gender= cursor.fetchall()
 		cursor.execute("select info from person_info where info_type_id=22 and PERSON_ID=" + cur_id)
 		height= cursor.fetchall()
-		results=''
+		results=[name,birthday,deathdate,spouse,gender,height]
 	return results
