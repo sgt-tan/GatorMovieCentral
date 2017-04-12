@@ -47,3 +47,52 @@ def search_person(query):
         for res in results:
             res = (res[0], ' '.join(res[1].split(',')[::-1]).strip())
     return results
+def movie_data(cur_id):
+	with connection.cursor() as cursor:
+		cursor.execute("select info from movie_info where info_type_id=5 and movie_id=" + cur_id)
+		mpaa= cursor.fetchall()
+		cursor.execute("select info from movie_info where info_type_id=1 and movie_id=" + cur_id)
+		runtime= cursor.fetchall()
+		cursor.execute("select info from movie_info where info_type_id=3 and movie_id=" + cur_id)
+		genre= cursor.fetchall()
+		cursor.execute("select info from movie_info where info_type_id=16 and movie_id=" + cur_id)
+		release_date= cursor.fetchall()
+		cursor.execute("select rating from movie_info_idx where movie_id=" + cur_id)
+		rating= cursor.fetchall()
+		cursor.execute("select name, person_id from name inner join cast_info on cast_info.PERSON_ID=name.id where movie_id=" +cur_id+ " and role_id=8)
+		director= cursor.fetchall()
+		cursor.execute("select name, person_id from name inner join cast_info on cast_info.PERSON_ID=name.id where movie_id=" +cur_id+ " and role_id=4)
+		writer= cursor.fetchall()
+		cursor.execute("select name, person_id from name inner join cast_info on cast_info.PERSON_ID=name.id where movie_id=" +cur_id+ " and role_id=1)
+		actor= cursor.fetchall()
+		cursor.execute("select name, person_id from name inner join cast_info on cast_info.PERSON_ID=name.id where movie_id=" +cur_id+ " and role_id=2)
+		actress= cursor.fetchall()
+		cursor.execute("select info from movie_info where info_type_id=105 and movie_id=" + cur_id)
+		budget= cursor.fetchall()
+		cursor.execute("select info from movie_info where info_type_id=108 and movie_id=" + cur_id)
+		opweekend= cursor.fetchall()
+		cursor.execute("select info from movie_info where info_type_id=106 and movie_id=" + cur_id)
+		grweekend= cursor.fetchall()
+		cursor.execute("select info from movie_info where info_type_id=107 and movie_id=" + cur_id)
+		gross= cursor.fetchall()
+		cursor.execute(select name, company_id from company_name inner join movie_companies on movie_companies.COMPANY_ID=company_name.id where movie_id="+cur_id+" and company_type_id=2)
+		prod_comp= cursor.fetchall()
+		results=''
+	return results
+
+def person_data(cur_id):
+	with connection.cursor() as cursor:
+		cursor.execute("select name from name where id=" + cur_id)
+		name= cursor.fetchall()
+		cursor.execute("select info from person_info where info_type_id=21 and PERSON_ID=" + cur_id)
+		birthday= cursor.fetchall()
+		cursor.execute("select info from person_info where info_type_id=23 and PERSON_ID=" + cur_id)
+		deadate= cursor.fetchall()
+		cursor.execute("select info from person_info where info_type_id=24 and PERSON_ID=" + cur_id)
+		spouse= cursor.fetchall()
+		cursor.execute("select gender from name where id=" + cur_id)
+		gender= cursor.fetchall()
+		cursor.execute("select info from person_info where info_type_id=22 and PERSON_ID=" + cur_id)
+		height= cursor.fetchall()
+		results=''
+	return results
