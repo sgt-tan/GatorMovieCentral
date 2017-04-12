@@ -1,79 +1,173 @@
 <!doctype html>
 <html>
 	<head>
-		<title>Movies</title>
-		<link href="file:///Users/carlosmolina/Downloads/main.css" rel="stylesheet" type="text/css" />	
+		<title>{{ movie_data.0.0 }} - Gator Movie Central</title>
+		<style>
+		body {
+			background: white;
+			font-family: arial;
+		}
+
+		h1, h2, li {
+			color: black;
+		}
+
+		a {
+			color: green;
+		}
+
+		p {
+			background: #666;
+			color: white;
+			padding: 10px;
+		}
+
+		section {
+
+		}
+
+		.secondary {
+			background: none;
+			color: #777;
+		}
+
+		#special {
+			background: red;
+			color: white;
+		}
+
+		.container {
+		    background: #ccc;
+		    display: table
+		}
+		.left, .right {
+		    display: table-cell
+		}
+		.full {
+		    display: table-cell
+		    width: 606px;
+		    background: #aaa;
+		    border: 3px solid #000
+		}
+		.left {
+		    width: 300px;
+		    background: #aaa;
+		    border: 3px solid #000;
+		}
+		.right {
+		    width: 300px;
+		    background: #aaa;
+		    border: 3px solid #000
+		}
+		</style>
 	</head>
 
 	<body>
+
+		{% if movie_data %}
+
 		<center>
-
-		<h1>Gator Movie Central</h1>
-
-		<nav>
-			<ul>
-				<li><a href="">Home</a></li>
-			</ul>
-		</nav>		
-
-		<h2>
-			<strong>Iron Man<span></span>
-			</strong>
-		</h2>
-		
-
+		<h1>{{ movie_data.0.0 }}</h1>
+		<h2><strong>
+			</strong></h3>
 
 		<h4>
-			<strong>Quick Information:</strong>
+		<strong>Quick Information:</strong>
 		</h4>
 		<p>
-			MPAA Rating:	<span></span><br>
-			Runtime:		<span></span><br>
-			Genre:			<span></span><br>
-			Release Date:	<span></span><br>
-			Rating:			<span></span>
+			MPAA Rating:	<span>{{ movie_data.1.0 }}</span><br>
+			Runtime:		<span>{{ movie_data.2.0 }}</span><br>
+			Genre:			<br>
+			{% for genre in movie_data.3 %}
+			<span>{{ genre.0 }}</span><br>
+			{% endfor %}
+			Release Date:	<span>{{ movie_data.4.0 }}</span><br>
+			Rating:			<span>{{ movie_data.5.0 }}</span>
 		</p>
 
 		<h4>
 			<strong>People Involved:</strong>
 		</h4>
 		<p>
-			Director:		<span></span><br>
-			Writer(s):		<span></span><br>
-			Cast:			<span></span>
+			Director:		<br>
+			{% for director in movie_data.6 %}
+			<a href="/person/{{ director.1 }}">{{ director.0 }}</a><br>
+			{% endfor %}
+			Writer(s):		<br>
+			{% for writer in movie_data.7 %}
+			<a href="/person/{{ writer.1 }}">{{ writer.0 }}</a><br>
+			{% endfor %}
+			Cast:			<br>
+			{% for actor in movie_data.8 %}
+			<a href="/person/{{ actor.1 }}">{{ actor.0 }}</a>  | {{ actor.2 }}<br>
+			{% endfor %}
 		</p>
 
-		<h4>
-			<strong>Details:</strong>
-		</h4>
-		<p>
-			Countries: USA		<br>
-			Languages: English	<br>
-			Release Date:	<span></span>
-		</p>
-
-		<h4>
 			<strong>Box Office:</strong>
 		</h4>
 		<p>
-			Budget:				<span></span><br>
-			Opening Weekend:	<span></span><br>
-			Weekend Gross:		<span></span><br>
-			Gross:				<span></span>
+			Budget:				<span>{{ movie_data.9.0 }}</span><br>
+			Opening Weekend:	<br>
+			{% for weekend in movie_data.10 %}
+			<span>{{ weekend.0 }}</span><br>
+			{% endfor %}
+			Weekend Gross:		<br>
+			{% for weekendgr in movie_data.11 %}
+			<span>{{ weekendgr.0 }}</span><br>
+			{% endfor %}
+			Gross:				<br>
+			{% for gross in movie_data.12 %}
+			<span>{{ gross.0 }}</span><br>
+			{% endfor %}
 		</p>
 
 		<h4>
 			<strong>Production Company</strong>
 		</h4>
 		<p>
-			Co. Name: 		<span></span>
+			{% for comp in movie_data.13 %}
+			<span>{{ comp.0 }}</span><br>
+			{% endfor %}
 		</p>
-<!-- 		<n></n>
-		<span></span> -->
-		<img src="https://img0.etsystatic.com/123/0/12142369/il_340x270.887979564_hlfk.jpg">
-		
-		<footer>Gator Movie Central</footer><br>
+
+		<!-- Two Columns -->
+		<div class="container">
+		    <div class="left">
+		    <strong>Query #1:</strong>
+		    <p>Query #1 Stuff</p>
+		    </div>
+		    
+		    <div class="right">
+		    <h4>Query #2:</h4>
+		    <p>Query #2 Stuff</p>
+		    </div>
+		</div>
+
+		<div class="container">
+		    <div class="left">
+		    <strong>Query #3:</strong>
+		    <p>Query #3 Stuff</p>
+		    </div>
+		    
+		    <div class="right">
+		    <h4>Query #4:</h4>
+		    <p>Query #4 Stuff</p>
+		    </div>
+		</div>
+
+		<div class="container">
+		    <div class="full">
+		    <strong>Query #5:</strong>
+		    <p>Query #5 Stuff</p>
+		    </div>
+		</div>
 
 		</center>
+
+		{% else %}
+		<h1>ERROR</h1>
+		<h2>Movie with id {{ id }} not found!</h2>
+		{% endif %}
+
 	</body>
 </html>
