@@ -1,6 +1,8 @@
 <!doctype html>
 <html>
 	<head>
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 		<title>{{ person_data.0.0 }} - Gator Movie Central</title>
 		<style>
 		body {
@@ -35,92 +37,155 @@
 			background: red;
 			color: white;
 		}
-
-		.container {
-		    background: #ccc;
-		    display: table
-		}
-		.left, .right {
-		    display: table-cell
-		}
-		.full {
-		    display: table-cell
-		}
-		.left {
-		    width: 300px;
-		    background: #aaa;
-		    border: 3px solid #000;
-		}
-		.right {
-		    width: 300px;
-		    background: #aaa;
-		    border: 3px solid #000
-		}
-		.full {
-		    width: 606px;
-		    background: #aaa;
-		    border: 3px solid #000
-		}
-
 		</style>
 	</head>
 
 	<body>
 		<center>
 
-		<h1>People Information</h1>
+		<h1>{{ person_data.0.0 }}</h1>
 
-		<h2><strong>*Name goes here*<div></div>
-			</strong></h3>
-
-		<h4>Birthday: <div></div>
-<!-- 			Birthplace: <div></div>
- -->
- 			Deathdate: <div></div>
-
-			Spouse:<div></div>
-			Gender: <div></div>
-			Height: <div></div>
+		<h4>
+			{{ person_data.1.0 }} - {{ person_data.2.0 }}<br>
+			Spouse: {{ person_data.3.0 }}<br>
+			Gender: {{ person_data.4.0 }}<br>
+			Height: {{ person_data.5.0 }}
 		</h4>
 
-		<div class="container">
-		    <div class="left">
-		    <strong>Query #1:</strong>
-		    <p>Query #1 Stuff</p>
-		    </div>
-		    
-		    <div class="right">
-		    <strong>Query #2:</strong>
-		    <p>Query #2 Stuff</p>
-		    </div>
-		</div>
+	</center>
 
-		<div class="container">
-		    <div class="left">
-		    <strong>Query #3:</strong>
-		    <p>Query #3 Stuff</p>
-		    </div>
-		    
-		    <div class="right">
-		    <strong>Query #4:</strong>
-		    <p>Query #4 Stuff</p>
-		    </div>
-		</div>
 
-		<div class="container">
-		    <div class="full">
-		    <strong>Query #5:</strong>
-		    <p>Query #5 Stuff</p>
-		    </div>
-		</div>
+		<div class="row">
 
-		</center>
-<!-- 		<div></div>
-		<span></span> -->
-		<center>
-		<img src="https://img0.etsystatic.com/123/0/12142369/il_340x270.887979564_hlfk.jpg">
-		</center>
+		<div class="container col-md-4">
+			Acted in:
+		<table class="table table-condensed table-hover">
+		<thead>
+			<tr>
+				<th>Movie</th>
+				<th>Character</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for movie in person_data.6 %}
+			<tr>
+				<td><a href="/movie/{{ movie.0 }}">{{ movie.1 }}</a></td>
+				<td>{{ movie.2 }}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+		</table>
+	</div>
 
+	<div class="container col-md-3">
+		Directed:
+	<table class="table table-condensed table-hover">
+	<thead>
+		<tr>
+			<th>Movie</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for movie in person_data.7 %}
+		<tr>
+			<td><a href="/movie/{{ movie.0 }}">{{ movie.1 }}</a></td>
+		</tr>
+		{% endfor %}
+	</tbody>
+	</table>
+</div>
+
+<div class="container col-md-3">
+	Wrote:
+<table class="table table-condensed table-hover">
+<thead>
+	<tr>
+		<th>Movie</th>
+	</tr>
+</thead>
+<tbody>
+	{% for movie in person_data.8 %}
+	<tr>
+		<td><a href="/movie/{{ movie.0 }}">{{ movie.1 }}</a></td>
+	</tr>
+	{% endfor %}
+</tbody>
+</table>
+</div>
+
+</div>
+
+<div class="container col-md-3">
+Same birthday:
+<table class="table table-condensed table-hover">
+<thead>
+	<tr>
+		<th>Name</th>
+	</tr>
+</thead>
+<tbody>
+	{% for bd in person_data.9 %}
+	<tr>
+		<td><a href="/person/{{ bd.0 }}">{{ bd.1 }}</a></td>
+	</tr>
+	{% endfor %}
+</tbody>
+</table>
+</div>
+
+<div class="container col-md-3">
+Same height:
+<table class="table table-condensed table-hover">
+<thead>
+	<tr>
+		<th>Name</th>
+	</tr>
+</thead>
+<tbody>
+	{% for ht in person_data.10 %}
+	<tr>
+		<td><a href="/person/{{ ht.0 }}">{{ ht.1 }}</a></td>
+	</tr>
+	{% endfor %}
+</tbody>
+</table>
+</div>
+
+<div class="container col-md-3">
+Top 3 Movies (by rating):
+<table class="table table-condensed table-hover">
+<thead>
+	<tr>
+		<th>Movie</th>
+	</tr>
+</thead>
+<tbody>
+	{% for top in person_data.11 %}
+	<tr>
+		<td><a href="/movie/{{ top.0 }}">{{ top.1 }}</a></td>
+	</tr>
+	{% endfor %}
+</tbody>
+</table>
+</div>
+
+<div class="container col-md-3">
+Bottom 3 Movies (by rating):
+<table class="table table-condensed table-hover">
+<thead>
+	<tr>
+		<th>Movie</th>
+	</tr>
+</thead>
+<tbody>
+	{% for low in person_data.12 %}
+	<tr>
+		<td><a href="/movie/{{ low.0 }}">{{ low.1 }}</a></td>
+	</tr>
+	{% endfor %}
+</tbody>
+</table>
+</div>
 
 	</body>
 </html>
