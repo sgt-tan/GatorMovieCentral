@@ -50,6 +50,8 @@ def search_person(query):
     return results
 def movie_data(cur_id):
 	with connection.cursor() as cursor:
+		cursor.execute("select title from title where movie_id=" + cur_id)
+		title= cursor.fetchall()
 		cursor.execute("select info from movie_info where info_type_id=5 and movie_id=" + cur_id)
 		mpaa= cursor.fetchall()
 		cursor.execute("select info from movie_info where info_type_id=1 and movie_id=" + cur_id)
@@ -76,7 +78,7 @@ def movie_data(cur_id):
 		gross= cursor.fetchall()
 		cursor.execute(select name, company_id from company_name inner join movie_companies on movie_companies.COMPANY_ID=company_name.id where movie_id="+cur_id+" and company_type_id=2)
 		prod_comp= cursor.fetchall()
-		results=[mpaa, runtime, genre,release_date,rating,director,writer,actor,budget,opweekend,grweekend,gross,prod_comp]
+		results=[title, mpaa, runtime, genre,release_date,rating,director,writer,actor,budget,opweekend,grweekend,gross,prod_comp]
 	return results
 
 def person_data(cur_id):
