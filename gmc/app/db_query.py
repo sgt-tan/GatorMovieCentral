@@ -45,32 +45,31 @@ def search_person(query):
     with connection.cursor() as cursor:
         cursor.execute("SELECT id,name FROM name WHERE upper(name) LIKE \'%" + query.upper() + "%\' AND rownum <= 10")
         results = cursor.fetchall()
-        for res in results:
-            res = (res[0], ' '.join(res[1].split(',')[::-1]).strip())
     return results
 
 def movie_data(cur_id):
 	with connection.cursor() as cursor:
-		cursor.execute("select title from title where movie_id=" + cur_id)
-		title= cursor.fetchall()
+		cursor.execute("select title from title where id=" + cur_id)
+		title= cursor.fetchone()
 		cursor.execute("select info from movie_info where info_type_id=5 and movie_id=" + cur_id)
-		mpaa= cursor.fetchall()
+		mpaa= cursor.fetchone()
 		cursor.execute("select info from movie_info where info_type_id=1 and movie_id=" + cur_id)
-		runtime= cursor.fetchall()
+		runtime= cursor.fetchone()
 		cursor.execute("select info from movie_info where info_type_id=3 and movie_id=" + cur_id)
 		genre= cursor.fetchall()
 		cursor.execute("select info from movie_info where info_type_id=16 and movie_id=" + cur_id)
-		release_date= cursor.fetchall()
+		release_date= cursor.fetchone()
 		cursor.execute("select rating from movie_info_idx where movie_id=" + cur_id)
-		rating= cursor.fetchall()
+		rating= cursor.fetchone()
+		# number of votes
 		cursor.execute("select name, person_id from name inner join cast_info on cast_info.PERSON_ID=name.id where movie_id=" +cur_id+ " and role_id=8")
 		director= cursor.fetchall()
 		cursor.execute("select name, person_id from name inner join cast_info on cast_info.PERSON_ID=name.id where movie_id=" +cur_id+ " and role_id=4")
 		writer= cursor.fetchall()
-		cursor.execute("select name, person_id from name inner join cast_info on cast_info.PERSON_ID=name.id where movie_id=" +cur_id+ " and (role_id=1 or role_id=2)")
+		cursor.execute("select name, person_id, (select name from char_name where id = cast_info.person_role_id and rownum <= 1) as role from name inner join cast_info on cast_info.PERSON_ID=name.id where movie_id=" +cur_id+ " and (role_id=1 or role_id=2) order by nr_order")
 		actor= cursor.fetchall()
 		cursor.execute("select info from movie_info where info_type_id=105 and movie_id=" + cur_id)
-		budget= cursor.fetchall()
+		budget= cursor.fetchone()
 		cursor.execute("select info from movie_info where info_type_id=108 and movie_id=" + cur_id)
 		opweekend= cursor.fetchall()
 		cursor.execute("select info from movie_info where info_type_id=106 and movie_id=" + cur_id)
@@ -85,7 +84,7 @@ def movie_data(cur_id):
 def person_data(cur_id):
 	with connection.cursor() as cursor:
 		cursor.execute("select name from name where id=" + cur_id)
-		name= cursor.fetchall()
+		name= cursor.fetchone()
 		cursor.execute("select info from person_info where info_type_id=21 and PERSON_ID=" + cur_id)
 		birthday= cursor.fetchall()
 		cursor.execute("select info from person_info where info_type_id=23 and PERSON_ID=" + cur_id)

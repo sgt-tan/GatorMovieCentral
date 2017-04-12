@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 	<head>
-		<title>Movies</title>
+		<title>{{ movie_data.0.0 }} - Gator Movie Central</title>
 		<style>
 		body {
 			background: white;
@@ -43,7 +43,7 @@
 		{% if movie_data %}
 
 		<center>
-		<h1>{{ id }}</h1>
+		<h1>{{ movie_data.0.0 }}</h1>
 		<h2><strong>
 			</strong></h3>
 
@@ -51,50 +51,61 @@
 		<strong>Quick Information:</strong>
 		</h4>
 		<p>
-			MPAA Rating:	<span></span><br>
-			Runtime:		<span></span><br>
-			Genre:			<span></span><br>
-			Release Date:	<span></span><br>
-			Rating:			<span></span>
+			MPAA Rating:	<span>{{ movie_data.1.0 }}</span><br>
+			Runtime:		<span>{{ movie_data.2.0 }}</span><br>
+			Genre:			<br>
+			{% for genre in movie_data.3 %}
+			<span>{{ genre.0 }}</span><br>
+			{% endfor %}
+			Release Date:	<span>{{ movie_data.4.0 }}</span><br>
+			Rating:			<span>{{ movie_data.5.0 }}</span>
 		</p>
 
 		<h4>
 			<strong>People Involved:</strong>
 		</h4>
 		<p>
-			Director:		<span></span><br>
-			Writer(s):		<span></span><br>
-			Cast:			<span></span>
-		</p>
-
-		<h4>
-			<strong>Details:</strong>
-		</h4>
-		<p>
-			Countries: USA		<br>
-			Languages: English	<br>
-			Release Date:	<span></span>
+			Director:		<br>
+			{% for director in movie_data.6 %}
+			<a href="/person/{{ director.1 }}">{{ director.0 }}</a><br>
+			{% endfor %}
+			Writer(s):		<br>
+			{% for writer in movie_data.7 %}
+			<a href="/person/{{ writer.1 }}">{{ writer.0 }}</a><br>
+			{% endfor %}
+			Cast:			<br>
+			{% for actor in movie_data.8 %}
+			<a href="/person/{{ actor.1 }}">{{ actor.0 }}</a>  | {{ actor.2 }}<br>
+			{% endfor %}
 		</p>
 
 			<strong>Box Office:</strong>
 		</h4>
 		<p>
-			Budget:				<span></span><br>
-			Opening Weekend:	<span></span><br>
-			Weekend Gross:		<span></span><br>
-			Gross:				<span></span>
+			Budget:				<span>{{ movie_data.9.0 }}</span><br>
+			Opening Weekend:	<br>
+			{% for weekend in movie_data.10 %}
+			<span>{{ weekend.0 }}</span><br>
+			{% endfor %}
+			Weekend Gross:		<br>
+			{% for weekendgr in movie_data.11 %}
+			<span>{{ weekendgr.0 }}</span><br>
+			{% endfor %}
+			Gross:				<br>
+			{% for gross in movie_data.12 %}
+			<span>{{ gross.0 }}</span><br>
+			{% endfor %}
 		</p>
 
 		<h4>
 			<strong>Production Company</strong>
-			Co. Name: 		<span></span>
 		</h4>
 		<p>
-			<span></span>
+			{% for comp in movie_data.13 %}
+			<span>{{ comp.0 }}</span><br>
+			{% endfor %}
 		</p>
 
-		</center>
-		<center>
 		</center>
 
 		{% else %}
