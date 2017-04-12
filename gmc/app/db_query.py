@@ -48,6 +48,7 @@ def search_person(query):
         for res in results:
             res = (res[0], ' '.join(res[1].split(',')[::-1]).strip())
     return results
+
 def movie_data(cur_id):
 	with connection.cursor() as cursor:
 		cursor.execute("select title from title where movie_id=" + cur_id)
@@ -62,9 +63,9 @@ def movie_data(cur_id):
 		release_date= cursor.fetchall()
 		cursor.execute("select rating from movie_info_idx where movie_id=" + cur_id)
 		rating= cursor.fetchall()
-		cursor.execute("select name, person_id from name inner join cast_info on cast_info.PERSON_ID=name.id where movie_id=" +cur_id+ " and role_id=8)
+		cursor.execute("select name, person_id from name inner join cast_info on cast_info.PERSON_ID=name.id where movie_id=" +cur_id+ " and role_id=8")
 		director= cursor.fetchall()
-		cursor.execute("select name, person_id from name inner join cast_info on cast_info.PERSON_ID=name.id where movie_id=" +cur_id+ " and role_id=4)
+		cursor.execute("select name, person_id from name inner join cast_info on cast_info.PERSON_ID=name.id where movie_id=" +cur_id+ " and role_id=4")
 		writer= cursor.fetchall()
 		cursor.execute("select name, person_id from name inner join cast_info on cast_info.PERSON_ID=name.id where movie_id=" +cur_id+ " and (role_id=1 or role_id=2)")
 		actor= cursor.fetchall()
@@ -76,7 +77,7 @@ def movie_data(cur_id):
 		grweekend= cursor.fetchall()
 		cursor.execute("select info from movie_info where info_type_id=107 and movie_id=" + cur_id)
 		gross= cursor.fetchall()
-		cursor.execute(select name, company_id from company_name inner join movie_companies on movie_companies.COMPANY_ID=company_name.id where movie_id="+cur_id+" and company_type_id=2)
+		cursor.execute("select name, company_id from company_name inner join movie_companies on movie_companies.COMPANY_ID=company_name.id where movie_id="+cur_id+" and company_type_id=2")
 		prod_comp= cursor.fetchall()
 		results=[title, mpaa, runtime, genre,release_date,rating,director,writer,actor,budget,opweekend,grweekend,gross,prod_comp]
 	return results

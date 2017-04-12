@@ -21,8 +21,8 @@ def results(request):
 
 @csrf_exempt
 def person(request, id):
-    return render(request, 'person.html', {})
+    return render(request, 'person.html', {'person_data': person_data(id)})
 
 @csrf_exempt
 def movie(request, id):
-    return render(request, 'movie.html', {})
+    return render(request, 'movie.html', {'id': id, 'movie_data': movie_data(id)})

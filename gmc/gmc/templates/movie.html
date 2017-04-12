@@ -39,13 +39,13 @@
 	</head>
 
 	<body>
+
+		{% if movie_data %}
+
 		<center>
-		<h1>Movie Information</h1>
-
-		<h2><strong>*Movie name goes here*<spn></spn>
+		<h1>{{ id }}</h1>
+		<h2><strong>
 			</strong></h3>
-
-<!-- Runtime, genre, languages, countries, taglines (phrases about it), release dates, votes distribution(deleted), votes (# of ratings), rating, production dates, budget,weekend gross, gross, opening weekend, admissions(deleted), production company -->
 
 		<h4>
 		<strong>Quick Information:</strong>
@@ -94,12 +94,13 @@
 		</p>
 
 		</center>
-<!-- 		<n></n>
-		<span></span> -->
 		<center>
-		<img src="https://img0.etsystatic.com/123/0/12142369/il_340x270.887979564_hlfk.jpg">
 		</center>
 
+		{% else %}
+		<h1>ERROR</h1>
+		<h2>Movie with id {{ id }} not found!</h2>
+		{% endif %}
 
 	</body>
 </html>
