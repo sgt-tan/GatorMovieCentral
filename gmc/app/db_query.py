@@ -78,7 +78,16 @@ def movie_data(cur_id):
 		gross= cursor.fetchall()
 		cursor.execute("select name, company_id from company_name inner join movie_companies on movie_companies.COMPANY_ID=company_name.id where movie_id="+cur_id+" and company_type_id=2")
 		prod_comp= cursor.fetchall()
-		results=[title, mpaa, runtime, genre,release_date,rating,director,writer,actor,budget,opweekend,grweekend,gross,prod_comp]
+		cursor.execute("select count(gender) from name where id in (select person_id from cast_info where movie_id="+cur_id+") and gender is not null group by gender;")
+		gender= cursor.fetchall()
+		cursor.execute("select ranking from (select row_number() over(order by votes desc)Ranking, movie_id from movie_info_idx) where movie_id=" + cur_id + ";")
+		pop1= cursor.fetchone()
+		pop2=round((pop1[0]/10141.0) * 100,1)
+		pop=(pop1,pop2)
+		cursor.execute("select id,title from title where id in(select movie_id from movie_info where info in (select info from MOVIE_INFO where INFO_TYPE_ID=3 and movie_id =" + cur_id + ") and rownum<=5 group by movie_id having count(distinct info)<= (select count(info) from MOVIE_INFO where INFO_TYPE_ID=3 and movie_id =" + cur_id+"))")
+		similar= cursor.fetchall()
+		print similar
+		results=[title, mpaa, runtime, genre,release_date,rating,director,writer,actor,budget,opweekend,grweekend,gross,prod_comp,gender,pop,similar]
 	return results
 
 def person_data(cur_id):
@@ -109,6 +118,14 @@ def person_data(cur_id):
 		top3= cursor.fetchall()
 		cursor.execute("select id,title from title where id in (select movie_id from (select movie_id, rating from (select movie_id, rating from movie_info_idx where movie_id in (select movie_id from cast_info where PERSON_ID =" + cur_id + ") order by rating asc)where rownum<=3));")
 		low3= cursor.fetchall()
+		cursor.execute("select count(rating) from movie_info_idx where movie_id in(select movie_id from cast_info where person_id=" + cur_id + ") and rating>7;")
+		excellent= cursor.fetchone()
+		cursor.execute("select count(rating) from movie_info_idx where movie_id in(select movie_id from cast_info where person_id=" + cur_id + ") and rating<7 and rating>4;")
+		good= cursor.fetchone()
+		cursor.execute("select count(rating) from movie_info_idx where movie_id in(select movie_id from cast_info where person_id=" + cur_id + ") and rating<4;")
+		poor= cursor.fetchone()
+		cursor.execute("select production_year, avg(rating), count(title) from title inner join movie_info_idx on movie_info_idx.MOVIE_ID=title.ID where movie_id in(select movie_id from cast_info where person_id=" + cur_id + ") group by production_year order by production_year desc;")
+		rating_movieperyear= cursor.fetchall()
 
-		results=[name,birthday,deathdate,spouse,gender,height,acted,directed,wrote,same_bd,same_ht,top3,low3]
+		results=[name,birthday,deathdate,spouse,gender,height,acted,directed,wrote,same_bd,same_ht,top3,low3,excellent,good,poor,rating_movieperyear]
 	return results

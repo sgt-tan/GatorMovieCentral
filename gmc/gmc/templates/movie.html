@@ -3,6 +3,28 @@
 	<head>
 		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Gender', '# of People'],
+          ['Male', {{ movie_data.14.0.0 }}],
+          ['Female', {{ movie_data.14.1.0 }}]
+        ]);
+
+      var options = {
+        legend: 'none',
+        pieSliceText: 'label',
+        title: 'Gender Distribution',
+        pieStartAngle: 100,
+      };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        chart.draw(data, options);
+      }
+    </script>
 		<title>{{ movie_data.0.0 }} - Gator Movie Central</title>
 		<style>
 		body {
@@ -14,13 +36,8 @@
 			color: black;
 		}
 
-		a {
-			color: green;
-		}
-
 		p {
-			background: #666;
-			color: white;
+			color: black;
 			padding: 10px;
 		}
 
@@ -37,6 +54,9 @@
 			background: red;
 			color: white;
 		}
+		.table1 {
+			float: none;
+		}
 		</style>
 	</head>
 
@@ -47,6 +67,9 @@
 		<center>
 		<h1>{{ movie_data.0.0 }}</h1>
 		<h4>
+
+		Popularity: {{ movie_data.15.0.0 }} of 10141 (Top {{ movie_data.15.1 }}%)<br><br>
+
 		<strong>Quick Information:</strong>
 		</h4>
 		<p>
@@ -56,6 +79,12 @@
 			{% for genre in movie_data.3 %}
 			<span>{{ genre.0 }}</span><br>
 			{% endfor %}
+			<br>
+			Similar Movies:<br>
+			{% for similar in movie_data.16 %}
+			<a href="/movie/{{ similar.0 }}">{{ similar.1 }}</a><br>
+			{% endfor %}
+			<br>
 			Release Date:	<span>{{ movie_data.4.0 }}</span><br>
 			Rating:			<span>{{ movie_data.5.0 }}</span>
 		</p>
@@ -74,7 +103,9 @@
 			{% endfor %}
 			Cast:			<br>
 			<div class="row">
-			<div class="container col-md-4">
+				<center>
+
+			<div class="container col-md-4 table1">
 			<table class="table table-condensed table-hover">
 			<thead>
 				<tr>
@@ -92,8 +123,13 @@
 			</tbody>
 			</table>
 		</div>
+	</center>
+
 	</div>
+</center>
+
 		</p>
+	<center>
 
 			<strong>Box Office:</strong>
 		</h4>
@@ -121,6 +157,10 @@
 			<span>{{ comp.0 }}</span><br>
 			{% endfor %}
 		</p>
+
+		<div class="row">
+		<div id="piechart" style="width: 900px; height: 500px;"></div>
+		<div>
 
 		</center>
 
