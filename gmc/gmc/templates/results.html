@@ -2,14 +2,14 @@
 
 <h2>Movies</h2>
 {% if movies %}
-	{% for res1 in movies %}
-	<li><a href="/movie/{{ res1.0 }}">{{ res1.1 }}</a></li>
+	{% for movie in movies %}
+	<li><a href="/movie/{{ movie.0 }}">{{ movie.1 }}</a></li>
 	{% endfor %}
 {% endif %}
 
 <h2>People</h2>
 {% if people %}
-	{% for res2 in people %}
-	<li><a href="/person/{{ res2.0 }}">{{ res2.1 }}</a></li>
+	{% for person in people %}
+	<li><a href="/person/{{ person.0 }}">{{ person.1 }}</a></li>
 	{% endfor %}
 {% endif %}

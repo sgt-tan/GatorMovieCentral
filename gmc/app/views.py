@@ -17,3 +17,11 @@ def home(request):
 @csrf_exempt
 def results(request):
     return render_to_response('results.html', {'query': request.GET['q'], 'movies': search_movie(request.GET['q']), 'people': search_person(request.GET['q'])})
+
+@csrf_exempt
+def person(request, id):
+    return render(request, 'person.html', {})
+
+@csrf_exempt
+def movie(request, id):
+    return render(request, 'movie.html', {})

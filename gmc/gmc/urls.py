@@ -20,4 +20,6 @@ from app.views import *
 urlpatterns = [
     url(r'^$', home),
     url(r'^search/$', results),
+    url(r'^person/(\d+)/$', person),
+    url(r'^movie/(\d+)/$', movie),
 ]
